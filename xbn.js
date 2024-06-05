@@ -2,7 +2,7 @@
 @zjy
 日期:2022.04.03
 [rewrite_local]
-^https:\/\/xiaobien-api\.baobaobooks\.com\/bookshelf\/v1\/v3_3_0\/booktab\/play\/1011773 url script-response-body https://raw.githubusercontent.com/lzjyuan/xbe/main/xbn.js
+^https:\/\/xiaobien-api\.baobaobooks\.com\/bookshelf\/v1\/v3_3_0\/newbook\/route\/1011773 url script-response-body https://raw.githubusercontent.com/lzjyuan/xbe/main/xbn.js
 hostname = xiaobien-api.baobaobooks.com
 *********************************************/
 
@@ -18,6 +18,12 @@ var obj = JSON.parse($response.body);
 // obj.is_buy=1;
 // obj.is_show_speak=1;
 
-obj.show_type = 2;
-obj.cate_info[0].play_show_type=1;
+// obj.show_type = 2;
+// obj.cate_info[0].play_show_type=1;
+
+obj.buy_day="1733410693";
+obj.read_time=100;
+obj.is_new_buy=1;
+obj.now_day = "1717599493"
+
 $done({body : JSON.stringify(obj)});
