@@ -15,6 +15,7 @@ const body = $response.body;
 
 // 定义重写规则函数
 function rewriteRequest(url, method, headers, body) {
+    console.log(url);
     // 根据 URL 和其他条件判断需要重写的接口
     if (url.startsWith("https://xiaobien-api.baobaobooks.com/bookshelf/v1/v3_3_0/booktab/read/1011773")) {
       var obj = JSON.parse(body);
