@@ -2,28 +2,50 @@
 @zjy
 日期:2022.04.03
 [rewrite_local]
-^https:\/\/xiaobien-api\.baobaobooks\.com\/bookshelf\/v1\/v3_3_0\/newbook\/route\/1011773 url script-response-body https://raw.githubusercontent.com/lzjyuan/xbe/main/xbn.js
+^https:\/\/xiaobien-api\.baobaobooks\.com\/bookshelf\/v1\/v3_3_0 url script-response-body https://raw.githubusercontent.com/lzjyuan/xbe/main/xbn.js
 hostname = xiaobien-api.baobaobooks.com
 *********************************************/
 
 //https://xiaobien-api.baobaobooks.com/bookshelf/v1/v3_3_0/booktab/books/1011773
 
-var obj = JSON.parse($response.body);
-//obj.is_buy = 5;
-// obj.is_user_buy=1;
-// obj.is_suit=1;
-// obj.book_name = "zjy";
-// obj.touch_talk = 0;
-// obj.share.title ="zjy";
-// obj.is_buy=1;
-// obj.is_show_speak=1;
+const url = $request.url;
+const method = $request.method;
+const headers = $request.headers;
+const body = $request.body;
 
-// obj.show_type = 2;
-// obj.cate_info[0].play_show_type=1;
+// 定义重写规则函数
+function rewriteRequest(url, method, headers, body) {
+    // 根据 URL 和其他条件判断需要重写的接口
+    if (url.startsWith("https://xiaobien-api.baobaobooks.com/bookshelf/v1/v3_3_0/booktab/read/1011773")) {
+      var obj = JSON.parse(body);
+      obj.show_type = 2;
+      obj.cate_info[0].play_show_type=1;
+      body = JSON.stringify(obj)
+    
 
-obj.buy_day="1733410693";
-obj.read_time=100;
-obj.is_new_buy=1;
-obj.now_day = "1717599493"
+    } else if (url.startsWith("https://xiaobien-api.baobaobooks.com/bookshelf/v1/v3_3_0/newbook/route/1011773")) {
+        var obj = JSON.parse(body);
+        obj.buy_day="1733410693";
+        obj.read_time=100;
+        obj.is_new_buy=1;
+        obj.now_day = "1717599493"
+        body = JSON.stringify(obj)
+    
+    }else if (url.startsWith("https://xiaobien-api.baobaobooks.com/bookshelf/v1/v3_3_0/booktab/play/1011773")) {
+           var obj = JSON.parse(body);
+          obj.show_type = 2;
+          obj.cate_info[0].play_show_type=1;
+          body = JSON.stringify(obj)
+    }
 
-$done({body : JSON.stringify(obj)});
+    // 返回重写后的请求信息
+    return {
+        url: url,
+        method: method,
+        headers: headers,
+        body: body
+    };
+}
+
+// 执行重写规则函数
+const rewrittenRequest = rewriteRequest(url, method, headers, body);
