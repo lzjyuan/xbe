@@ -11,6 +11,10 @@ hostname = xiaobien-api.baobaobooks.com
 var obj = JSON.parse($response.body);
 //obj.is_buy = 5;
 obj.is_user_buy=1;
-obj.is_suit=1
+obj.is_suit=1;
 obj.book_name = "zjy";
+obj.touch_talk = 0;
+obj.share.title ="zjy";
+obj.is_buy=1;
+obj.is_show_speak=1;
 $done({body : JSON.stringify(obj)});
