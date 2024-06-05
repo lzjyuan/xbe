@@ -8,10 +8,10 @@ hostname = xiaobien-api.baobaobooks.com
 
 //https://xiaobien-api.baobaobooks.com/bookshelf/v1/v3_3_0/booktab/books/1011773
 
-const url = $request.url;
-const method = $request.method;
-const headers = $request.headers;
-const body = $request.body;
+const url = $response.url;
+const method = $response.method;
+const headers = $response.headers;
+const body = $response.body;
 
 // 定义重写规则函数
 function rewriteRequest(url, method, headers, body) {
